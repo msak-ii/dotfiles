@@ -6,7 +6,7 @@ require('lualine').setup({
     theme = (function()
       local comment_fg = string.format('#%06x', vim.api.nvim_get_hl(0, { name = 'Comment' }).fg)
       local h = {}
-      for _, x in ipairs({ 'normal', 'insert', 'visual', 'replace', 'commnad', 'terminal' }) do
+      for _, x in ipairs({ 'normal', 'insert', 'visual', 'replace', 'command', 'terminal' }) do
         h[x] = {}
         for _, y in ipairs({ 'a', 'b', 'c', 'x', 'y', 'z' }) do
           h[x][y] = { bg = 'NONE', fg = 'NONE' }

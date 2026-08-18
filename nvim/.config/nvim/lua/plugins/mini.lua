@@ -9,13 +9,13 @@ require('mini.completion').setup({
     force_twostep = '<C-j>',
   },
 })
--- require("mini.keymap").setup()
--- require("mini.move").setup()
--- require("mini.operators").setup()
--- require("mini.pairs").setup()
--- require("mini.snippets").setup()
--- require("mini.splitjoin").setup()
--- require("mini.surround").setup()
+-- require('mini.keymap').setup()
+-- require('mini.move').setup()
+-- require('mini.operators').setup()
+-- require('mini.pairs').setup()
+-- require('mini.snippets').setup()
+-- require('mini.splitjoin').setup()
+-- require('mini.surround').setup()
 
 -- General workflow
 require('mini.basics').setup({
@@ -28,7 +28,7 @@ require('mini.basics').setup({
   },
 })
 -- require('mini.bracketed').setup()
--- require("mini.bufremove").setup()
+-- require('mini.bufremove').setup()
 local miniclue = require('mini.clue')
 miniclue.setup({
   triggers = {
@@ -83,7 +83,7 @@ miniclue.setup({
   },
 })
 require('mini.cmdline').setup()
--- require("mini.deps").setup()
+-- require('mini.deps').setup()
 -- require('mini.diff').setup()
 -- require('mini.extra').setup()
 require('mini.files').setup({
@@ -97,32 +97,32 @@ require('mini.files').setup({
 })
 require('mini.git').setup()
 -- require('mini.input').setup()
--- require("mini.jump").setup()
--- require("mini.jump2d").setup()
+-- require('mini.jump').setup()
+-- require('mini.jump2d').setup()
 -- require('mini.misc').setup()
--- require("mini.pick").setup()
--- require("mini.sessions").setup()
--- require("mini.visits").setup()
+-- require('mini.pick').setup()
+-- require('mini.sessions').setup()
+-- require('mini.visits').setup()
 
 -- Appearance
--- require("mini.animate").setup()
--- require("mini.base16").setup()
+-- require('mini.animate').setup()
+-- require('mini.base16').setup()
 require('mini.colors').setup()
 require('mini.cursorword').setup()
--- require("mini.hipatterns").setup()
--- require("mini.hues").setup()
+-- require('mini.hipatterns').setup()
+-- require('mini.hues').setup()
 require('mini.icons').setup({
   style = 'ascii',
 })
 require('mini.indentscope').setup()
--- require("mini.map").setup()
+-- require('mini.map').setup()
 require('mini.notify').setup()
--- require("mini.starter").setup()
--- require("mini.statusline").setup()
--- require("mini.tabline").setup()
+-- require('mini.starter').setup()
+-- require('mini.statusline').setup()
+-- require('mini.tabline').setup()
 require('mini.trailspace').setup()
 
 -- Other
--- require("mini.doc").setup()
--- require("mini.fuzzy").setup()
--- require("mini.test").setup()
+-- require('mini.doc').setup()
+-- require('mini.fuzzy').setup()
+-- require('mini.test').setup()

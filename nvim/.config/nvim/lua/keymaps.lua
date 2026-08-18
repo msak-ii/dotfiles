@@ -75,7 +75,11 @@ vim.keymap.set('n', '<Leader>o', function()
   require('fzf-lua').lsp_document_symbols()
 end, { desc = 'symbols' })
 vim.keymap.set('n', '<Leader>p', function()
-  require('fzf-lua').files({ fzf_opts = { ['--header'] = 'Directory: ' .. (vim.uv.cwd() or '') } })
+  local p = vim.uv.cwd() or ''
+  if vim.fn.has('win32') == 1 then
+    p = p:gsub('\\', '/')
+  end
+  require('fzf-lua').files({ fzf_opts = { ['--header'] = 'Directory: ' .. p } })
 end, { desc = 'files' })
 vim.keymap.set('n', '<Leader>q', '<Cmd>quit!<Cr>', { desc = 'quit' })
 vim.keymap.set('n', '<Leader>r', '<Cmd>restart<Cr>', { desc = 'restart' })

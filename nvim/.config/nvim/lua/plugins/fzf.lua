@@ -1,5 +1,12 @@
 vim.pack.add({ 'https://github.com/ibhagwan/fzf-lua' })
 
+local fd_opts = require('fzf-lua').config.defaults.files.fd_opts
+local rg_opts = require('fzf-lua').config.defaults.grep.rg_opts
+if vim.fn.has('win32') == 1 then
+  fd_opts = [[--type file --path-separator '/' ]] .. fd_opts
+  rg_opts = [[--path-separator '/' ]] .. rg_opts
+end
+
 require('fzf-lua').setup({
   winopts = {
     preview = {
@@ -13,7 +20,7 @@ require('fzf-lua').setup({
     formatter = 'path.filename_first',
   },
   files = {
-    fd_opts = (vim.fn.has('win32') == 1) and [[--type file --path-separator "/"]] or [[--type file]],
+    fd_opts = fd_opts,
     cwd_prompt = false,
     actions = {
       ['enter'] = require('fzf-lua.actions').file_edit,
@@ -27,7 +34,8 @@ require('fzf-lua').setup({
     },
   },
   grep = {
-    rg_opts = (vim.fn.has('win32') == 1) and [[--path-separator "/"]] or '',
+    rg_opts = rg_opts,
+    hidden = true,
   },
   lsp = {
     symbols = {
