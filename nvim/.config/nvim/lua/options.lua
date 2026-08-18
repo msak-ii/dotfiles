@@ -12,5 +12,10 @@ vim.opt.pumborder = 'rounded'
 
 vim.opt.foldmethod = 'marker'
 
+if vim.fn.has('win32') == 1 then
+  vim.opt.shellslash = true
+  vim.opt.completeslash = 'slash'
+end
+
 vim.cmd.colorscheme('miniwinter')
 require('mini.colors').get_colorscheme():add_transparency():apply()

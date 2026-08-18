@@ -1,3 +1,5 @@
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
 

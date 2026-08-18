@@ -4,6 +4,10 @@ brew "fd"
 brew "fzf"
 # Distributed revision control system
 brew "git"
+# Next-gen compiler infrastructure
+brew "llvm"
+# LLVM Project Linker
+brew "lld"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Search tool like grep and The Silver Searcher

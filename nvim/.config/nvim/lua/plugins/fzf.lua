@@ -13,7 +13,7 @@ require('fzf-lua').setup({
     formatter = 'path.filename_first',
   },
   files = {
-    fd_opts = [[--type file]],
+    fd_opts = (vim.fn.has('win32') == 1) and [[--type file --path-separator "/"]] or [[--type file]],
     cwd_prompt = false,
     actions = {
       ['enter'] = require('fzf-lua.actions').file_edit,
@@ -25,6 +25,9 @@ require('fzf-lua').setup({
         ['enter'] = require('fzf-lua.actions').file_edit,
       },
     },
+  },
+  grep = {
+    rg_opts = (vim.fn.has('win32') == 1) and [[--path-separator "/"]] or '',
   },
   lsp = {
     symbols = {
