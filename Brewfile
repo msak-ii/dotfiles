@@ -8,6 +8,8 @@ brew "git"
 brew "llvm"
 # LLVM Project Linker
 brew "lld"
+# Utility for directing compilation
+brew "make"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Search tool like grep and The Silver Searcher
