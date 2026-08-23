@@ -47,8 +47,15 @@ vim.keymap.set('n', '<Leader><Leader>', function()
 end, { desc = 'buffers' })
 vim.keymap.set('n', '<Leader>=', 'gg=G``', { desc = 'indent' })
 vim.keymap.set('n', '<Leader>D', function()
-  require('gitsigns').diffthis('~')
-end, { desc = 'diff HEAD~' })
+  local t = vim.api.nvim_get_current_tabpage()
+  for _, v in ipairs(require('diffview.lib').views) do
+    if v.tabpage == t then
+      v:close()
+      return
+    end
+  end
+  require('diffview').open({ 'HEAD' })
+end, { desc = 'diff HEAD' })
 vim.keymap.set('n', '<Leader>E', function()
   require('mini.files').open(nil, false)
 end, { desc = 'explorer root' })
@@ -60,7 +67,14 @@ vim.keymap.set('n', '<Leader>O', function()
 end, { desc = 'workspace symbols' })
 vim.keymap.set('n', '<Leader>a', '<Cmd>quitall!<Cr>', { desc = 'quitall' })
 vim.keymap.set('n', '<Leader>d', function()
-  require('gitsigns').diffthis()
+  local t = vim.api.nvim_get_current_tabpage()
+  for _, v in ipairs(require('diffview.lib').views) do
+    if v.tabpage == t then
+      v:close()
+      return
+    end
+  end
+  require('diffview').open()
 end, { desc = 'diff' })
 vim.keymap.set('n', '<Leader>e', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), false)
@@ -69,7 +83,14 @@ vim.keymap.set('n', '<Leader>g', function()
   require('fzf-lua').git_status()
 end, { desc = 'git status' })
 vim.keymap.set('n', '<Leader>h', function()
-  require('mini.git').show_at_cursor()
+  local t = vim.api.nvim_get_current_tabpage()
+  for _, v in ipairs(require('diffview.lib').views) do
+    if v.tabpage == t then
+      v:close()
+      return
+    end
+  end
+  require('diffview').file_history(nil, {'%'})
 end, { desc = 'history' })
 vim.keymap.set('n', '<Leader>o', function()
   require('fzf-lua').lsp_document_symbols()
