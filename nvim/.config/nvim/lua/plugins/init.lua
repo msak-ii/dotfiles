@@ -1,4 +1,5 @@
 require('plugins.mini')
+require('plugins.align')
 require('plugins.lualine')
 require('plugins.treesitter')
 require('plugins.gitsigns')

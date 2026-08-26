@@ -1,6 +1,8 @@
 vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<Cr>')
 
+vim.keymap.set({ 'n', 'x' }, 'ga', '<Plug>(EasyAlign)')
+
 vim.keymap.set('n', '[c', function()
   if vim.wo.diff then
     vim.cmd.normal({ '[c', bang = true })
@@ -90,7 +92,7 @@ vim.keymap.set('n', '<Leader>h', function()
       return
     end
   end
-  require('diffview').file_history(nil, {'%'})
+  require('diffview').file_history(nil, { '%' })
 end, { desc = 'history' })
 vim.keymap.set('n', '<Leader>o', function()
   require('fzf-lua').lsp_document_symbols()
