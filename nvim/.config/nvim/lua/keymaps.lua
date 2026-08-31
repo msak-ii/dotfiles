@@ -1,8 +1,6 @@
 vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<Cr>')
 
-vim.keymap.set({ 'n', 'x' }, 'ga', '<Plug>(EasyAlign)')
-
 vim.keymap.set('n', '[c', function()
   if vim.wo.diff then
     vim.cmd.normal({ '[c', bang = true })
@@ -17,6 +15,18 @@ vim.keymap.set('n', ']c', function()
     require('gitsigns').nav_hunk('next')
   end
 end)
+
+local satellite_enabled = true
+vim.keymap.set('n', '\\s', function()
+  if satellite_enabled then
+    vim.cmd('SatelliteDisable')
+  else
+    vim.cmd('SatelliteEnable')
+  end
+  satellite_enabled = not satellite_enabled
+end, { desc = 'Toggle Satellite' })
+
+vim.keymap.set({ 'n', 'x' }, 'ga', '<Plug>(EasyAlign)')
 
 vim.keymap.set('n', 'grD', function()
   vim.lsp.buf.declaration()
