@@ -1,9 +1,15 @@
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
 # Next-gen compiler infrastructure
 brew "llvm"
 # LLVM Project Linker
@@ -14,6 +20,8 @@ brew "make"
 brew "neovim"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# Development kit for the Java programming language
+brew "openjdk@25"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Fast, configurable, shell plugin manager

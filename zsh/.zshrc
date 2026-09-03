@@ -1,4 +1,6 @@
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+export PATH="$(brew --prefix)/opt/openjdk@25/bin:$PATH"
+export JAVA_HOME="$(brew --prefix)/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
 
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
