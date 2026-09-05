@@ -1,6 +1,26 @@
 vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<Cr>')
 
+-- recommended mappings
+-- resizing splits
+-- these keymaps will also accept a range,
+-- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left)
+vim.keymap.set('n', '<A-j>', require('smart-splits').resize_down)
+vim.keymap.set('n', '<A-k>', require('smart-splits').resize_up)
+vim.keymap.set('n', '<A-l>', require('smart-splits').resize_right)
+-- moving between splits
+vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
+vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
+vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
+vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
+vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+-- -- swapping buffers between windows
+-- vim.keymap.set('n', '<leader><leader>h', require('smart-splits').swap_buf_left)
+-- vim.keymap.set('n', '<leader><leader>j', require('smart-splits').swap_buf_down)
+-- vim.keymap.set('n', '<leader><leader>k', require('smart-splits').swap_buf_up)
+-- vim.keymap.set('n', '<leader><leader>l', require('smart-splits').swap_buf_right)
+
 vim.keymap.set('n', '[c', function()
   if vim.wo.diff then
     vim.cmd.normal({ '[c', bang = true })
@@ -138,3 +158,8 @@ end, { desc = 'filename' })
 vim.keymap.set({ 'n', 'x' }, '<Leader>f', function()
   require('conform').format({ async = true, lsp_format = 'fallback' })
 end, { desc = 'format' })
+vim.keymap.set('n', '<Leader>P', function()
+  local p = vim.fn.expand('%:r') .. '.pdf'
+  local cmd = string.format('wezterm cli split-pane --right -- tdf %s', vim.fn.shellescape(p))
+  vim.fn.system(cmd)
+end, { desc = 'preview PDF' })

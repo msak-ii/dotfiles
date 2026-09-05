@@ -30,6 +30,8 @@ brew "sheldon"
 brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# TUI-based PDF viewer
+brew "tdf"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Parser generator tool
