@@ -3,8 +3,10 @@ local config = wezterm.config_builder()
 
 config.window_decorations = 'RESIZE'
 
-config.font_size = 16
+config.font = wezterm.font('Monoid', { weight = 'Regular' })
+config.font_size = 14
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+config.line_height = 1.2
 
 config.color_scheme = 'Solarized Dark (Gogh)'
 local opacity = 0.9
@@ -125,17 +127,17 @@ end
 --   },
 -- }
 
-config.keys = {
-  -- move between split panes
-  split_nav('move', 'h'),
-  split_nav('move', 'j'),
-  split_nav('move', 'k'),
-  split_nav('move', 'l'),
-  -- resize panes
-  split_nav('resize', 'h'),
-  split_nav('resize', 'j'),
-  split_nav('resize', 'k'),
-  split_nav('resize', 'l'),
-}
+-- config.keys = {
+--   -- move between split panes
+--   split_nav('move', 'h'),
+--   split_nav('move', 'j'),
+--   split_nav('move', 'k'),
+--   split_nav('move', 'l'),
+--   -- resize panes
+--   split_nav('resize', 'h'),
+--   split_nav('resize', 'j'),
+--   split_nav('resize', 'k'),
+--   split_nav('resize', 'l'),
+-- }
 
 return config
