@@ -31,8 +31,8 @@ require('mini.basics').setup({
 })
 -- require('mini.bracketed').setup()
 -- require('mini.bufremove').setup()
-local miniclue = require('mini.clue')
-miniclue.setup({
+local clue = require('mini.clue')
+clue.setup({
   triggers = {
     -- Leader triggers
     { mode = { 'n', 'x' }, keys = '<Leader>' },
@@ -67,13 +67,13 @@ miniclue.setup({
 
   clues = {
     -- Enhance this by adding descriptions for <Leader> mapping groups
-    miniclue.gen_clues.square_brackets(),
-    miniclue.gen_clues.builtin_completion(),
-    miniclue.gen_clues.g(),
-    miniclue.gen_clues.marks(),
-    miniclue.gen_clues.registers(),
-    miniclue.gen_clues.windows(),
-    miniclue.gen_clues.z(),
+    clue.gen_clues.square_brackets(),
+    clue.gen_clues.builtin_completion(),
+    clue.gen_clues.g(),
+    clue.gen_clues.marks(),
+    clue.gen_clues.registers(),
+    clue.gen_clues.windows(),
+    clue.gen_clues.z(),
 
     { mode = 'n', keys = '<Leader>y', desc = '+Yank' },
   },
@@ -121,7 +121,26 @@ require('mini.indentscope').setup()
 require('mini.notify').setup()
 -- require('mini.starter').setup()
 require('mini.statuscolumn').setup()
-require('mini.statusline').setup({
+local statusline = require('mini.statusline')
+statusline.setup({
+  content = {
+    active = function()
+      local dirpath = vim.fn.expand('%:h')
+      if dirpath == '.' then
+        dirpath = ''
+      end
+      local fileinfo = string.format('%s %s', vim.bo.fileencoding or vim.bo.encoding, vim.bo.fileformat)
+      return statusline.combine_groups({
+        { hl = 'CursorLineNR', strings = { '%t%m%r' } },
+        '%<',
+        { hl = '', strings = { dirpath } },
+        '%=',
+        { strings = { fileinfo } },
+        { strings = { '%l,%3c' } },
+        { strings = { '%P' } },
+      })
+    end,
+  },
   use_icons = false,
 })
 -- require('mini.tabline').setup()
@@ -136,16 +155,16 @@ vim.api.nvim_create_autocmd('User', {
   group = vim.api.nvim_create_augroup('User_MiniFilesWindowOpen', { clear = true }),
   pattern = 'MiniFilesWindowOpen',
   callback = function(args)
-    local minifiles = require('mini.files')
+    local files = require('mini.files')
     vim.keymap.set('n', '<C-h>', function()
-      minifiles.trim_right()
-      minifiles.go_out()
+      files.trim_right()
+      files.go_out()
     end, { buffer = args.buf })
     vim.keymap.set('n', '<C-j>', 'j', { buffer = args.buf })
     vim.keymap.set('n', '<C-k>', 'k', { buffer = args.buf })
     vim.keymap.set('n', '<C-l>', function()
-      minifiles.trim_left()
-      minifiles.go_in()
+      files.trim_left()
+      files.go_in()
     end, { buffer = args.buf })
   end,
 })
@@ -158,9 +177,9 @@ vim.keymap.set('n', '<Leader>e', function()
 end, { desc = 'explorer' })
 
 vim.keymap.set('n', '<Leader>t', function()
-  local minitrailspace = require('mini.trailspace')
-  minitrailspace.trim()
-  minitrailspace.trim_last_lines()
+  local trailspace = require('mini.trailspace')
+  trailspace.trim()
+  trailspace.trim_last_lines()
 end, { desc = 'trim' })
 -- }}}
 
@@ -429,6 +448,9 @@ require('mini.colors').get_colorscheme():add_transparency():apply()
 vim.api.nvim_create_autocmd('CursorMoved', {
   group = vim.api.nvim_create_augroup('User_CursorMoved', { clear = true }),
   callback = function()
+    if vim.api.nvim_get_mode().mode ~= 'n' then
+      return
+    end
     if vim.api.nvim_buf_get_option(0, 'buftype') ~= '' then
       return
     end
