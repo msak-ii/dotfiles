@@ -131,12 +131,12 @@ statusline.setup({
       end
       local fileinfo = string.format('%s %s', vim.bo.fileencoding or vim.bo.encoding, vim.bo.fileformat)
       return statusline.combine_groups({
-        { hl = 'CursorLineNR', strings = { '%t%m%r' } },
+        { hl = 'Bold', strings = { '%t%m%r' } },
         '%<',
-        { hl = '', strings = { dirpath } },
+        { hl = 'StatusLine', strings = { dirpath } },
         '%=',
         { strings = { fileinfo } },
-        { strings = { '%l,%3c' } },
+        { strings = { '%5l,%3c' } },
         { strings = { '%P' } },
       })
     end,
@@ -176,10 +176,14 @@ vim.keymap.set('n', '<Leader>e', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), false)
 end, { desc = 'explorer' })
 
+vim.keymap.set('n', '<Leader>h', function()
+  require('mini.git').show_at_cursor()
+end, { desc = 'history' })
+
 vim.keymap.set('n', '<Leader>t', function()
-  local trailspace = require('mini.trailspace')
-  trailspace.trim()
-  trailspace.trim_last_lines()
+  local minitrailspace = require('mini.trailspace')
+  minitrailspace.trim()
+  minitrailspace.trim_last_lines()
 end, { desc = 'trim' })
 -- }}}
 
@@ -405,7 +409,7 @@ vim.keymap.set('n', '<Leader>d', function()
   end
   require('diffview').open()
 end, { desc = 'diff' })
-vim.keymap.set('n', '<Leader>h', function()
+vim.keymap.set('n', '<Leader>l', function()
   local current_tabpage = vim.api.nvim_get_current_tabpage()
   for _, view in ipairs(require('diffview.lib').views) do
     if view.tabpage == current_tabpage then
@@ -414,7 +418,7 @@ vim.keymap.set('n', '<Leader>h', function()
     end
   end
   require('diffview').file_history(nil, { '%' })
-end, { desc = 'history' })
+end, { desc = 'log' })
 -- }}}
 
 -- neovim
