@@ -212,6 +212,14 @@ vim.pack.add({ 'https://github.com/ibhagwan/fzf-lua' })
 
 local fzf_lua = require('fzf-lua')
 local fzf_lua_actions = require('fzf-lua.actions')
+
+local fd_opts = fzf_lua.config.defaults.files.fd_opts
+local rg_opts = fzf_lua.config.defaults.grep.rg_opts
+if vim.fn.has('win32') == 1 then
+  fd_opts = [[--path-separator "/" ]] .. fd_opts
+  rg_opts = [[--path-separator "/" ]] .. rg_opts
+end
+
 fzf_lua.setup({
   defaults = {
     formatter = 'path.filename_first',
@@ -225,6 +233,7 @@ fzf_lua.setup({
     end,
   },
   files = {
+    fd_ops = fd_opts,
     cwd_prompt = false,
     actions = {
       ['enter'] = fzf_lua_actions.file_edit,
@@ -238,6 +247,7 @@ fzf_lua.setup({
     },
   },
   grep = {
+    rg_opts = rg_opts,
     hidden = true,
   },
   lsp = {
@@ -253,7 +263,11 @@ vim.keymap.set('n', '<Leader>O', fzf_lua.lsp_live_workspace_symbols, { desc = 'w
 vim.keymap.set('n', '<Leader>g', fzf_lua.git_status, { desc = 'git status' })
 vim.keymap.set('n', '<Leader>o', fzf_lua.lsp_document_symbols, { desc = 'symbols' })
 vim.keymap.set('n', '<Leader>p', function()
-  fzf_lua.files({ fzf_opts = { ['--header'] = 'cwd: ' .. (vim.uv.cwd() or '') } })
+  local cwd = vim.uv.cwd() or ''
+  if vim.fn.has('win32') == 1 then
+    cwd = cwd:gsub('\\', '/')
+  end
+  fzf_lua.files({ fzf_opts = { ['--header'] = 'cwd: ' .. cwd } })
 end, { desc = 'files' })
 -- }}}
 
@@ -333,6 +347,16 @@ require('gitsigns').setup({
 vim.pack.add({ 'https://github.com/lewis6991/satellite.nvim' })
 
 require('satellite').setup()
+
+local satellite_enabled = true
+vim.keymap.set('n', '\\s', function()
+  if satellite_enabled then
+    vim.cmd('SatelliteDisable')
+  else
+    vim.cmd('SatelliteEnable')
+  end
+  satellite_enabled = not satellite_enabled
+end, { desc = 'Toggle Satellite' })
 -- }}}
 
 -- {{{ diffview
@@ -377,6 +401,11 @@ end, { desc = 'history' })
 -- neovim
 -- {{{ options
 vim.opt.clipboard = 'unnamed'
+
+if vim.fn.has('win32') == 1 then
+  vim.opt.shellslash = true
+  vim.opt.completeslash = 'slash'
+end
 
 vim.opt.foldmethod = 'marker'
 

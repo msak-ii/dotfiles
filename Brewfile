@@ -36,8 +36,11 @@ brew "tdf"
 brew "tree"
 # Parser generator tool
 brew "tree-sitter-cli"
+# Markup-based typesetting system
+brew "typst"
 # UNIX shell (command interpreter)
 brew "zsh"
+cask "font-monoid"
 # Web browser
 cask "google-chrome"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
