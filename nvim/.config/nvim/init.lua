@@ -478,6 +478,7 @@ vim.keymap.set('n', '<Leader>s', '<Cmd>split<Cr>', { desc = 'split' })
 vim.keymap.set('n', '<Leader>u', vim.pack.update, { desc = 'update plugins' })
 vim.keymap.set('n', '<Leader>v', '<Cmd>vsplit<Cr>', { desc = 'vsplit' })
 vim.keymap.set('n', '<Leader>w', '<Cmd>write<Cr>', { desc = 'write' })
+vim.keymap.set('n', '<Leader>x', '<Cmd>luafile .nvim.lua<Cr>', { desc = 'exrc' })
 
 function y2cb(arg)
   vim.fn.setreg('+', vim.fn.expand(arg))
