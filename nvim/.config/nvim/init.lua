@@ -204,6 +204,8 @@ vim.pack.add({
 
 require('nvim-treesitter').setup()
 require('treesitter-context').setup()
+
+vim.keymap.set('n', '\\t', '<Cmd>TSContext toggle<Cr>', { desc = 'Toggle TSContext' })
 -- }}}
 
 -- {{{ mason
@@ -259,7 +261,7 @@ fzf_lua.setup({
     end,
   },
   files = {
-    fd_ops = fd_opts,
+    fd_opts = fd_opts,
     cwd_prompt = false,
     actions = {
       ['enter'] = fzf_lua_actions.file_edit,
