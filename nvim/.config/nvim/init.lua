@@ -432,6 +432,38 @@ vim.keymap.set('n', '<Leader>lf', function()
 end, { desc = 'file history' })
 -- }}}
 
+-- {{{ dap
+vim.pack.add({
+  'https://github.com/mfussenegger/nvim-dap',
+  'https://github.com/nvim-neotest/nvim-nio',
+  'https://github.com/rcarriga/nvim-dap-ui',
+})
+
+local dap = require('dap')
+local dapui = require('dapui')
+
+require('dapui').setup({
+  controls = {
+    enabled = true,
+    element = 'repl',
+    icons = {
+      pause = '||',
+      play = '|>',
+      step_into = '->',
+      step_over = '>>',
+      step_out = '<-',
+      step_back = '<<',
+      run_last = 'RL',
+      terminate = 'x',
+      disconnect = 'DC',
+    },
+  },
+})
+
+vim.keymap.set('n', '<F2>', dap.toggle_breakpoint, { desc = 'Debug: toggle breackpoint' })
+vim.keymap.set('n', '<F12>', dapui.toggle, { desc = 'Toggle Debug UI' })
+-- }}}
+
 -- neovim
 -- {{{ options
 vim.opt.clipboard = 'unnamed'
