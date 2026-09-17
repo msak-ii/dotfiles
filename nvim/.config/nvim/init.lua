@@ -444,19 +444,24 @@ local dapui = require('dapui')
 
 require('dapui').setup({
   controls = {
-    enabled = true,
     element = 'repl',
+    enabled = true,
     icons = {
+      disconnect = 'DC',
       pause = '||',
       play = '|>',
-      step_into = '->',
-      step_over = '>>',
-      step_out = '<-',
-      step_back = '<<',
       run_last = 'RL',
+      step_back = '<<',
+      step_into = '->',
+      step_out = '<-',
+      step_over = '>>',
       terminate = 'x',
-      disconnect = 'DC',
     },
+  },
+  icons = {
+    collapsed = '>',
+    current_frame = '>',
+    expanded = '\\',
   },
 })
 
