@@ -78,6 +78,8 @@ clue.setup({
     clue.gen_clues.windows(),
     clue.gen_clues.z(),
 
+    { mode = 'n', keys = '<Leader>h', desc = '+Hunk' },
+    { mode = 'n', keys = '<Leader>l', desc = '+History' },
     { mode = 'n', keys = '<Leader>y', desc = '+Yank' },
   },
 
@@ -179,9 +181,9 @@ vim.keymap.set('n', '<Leader>e', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), false)
 end, { desc = 'explorer' })
 
-vim.keymap.set('n', '<Leader>h', function()
+vim.keymap.set('n', '<Leader>lc', function()
   require('mini.git').show_at_cursor()
-end, { desc = 'history' })
+end, { desc = 'history at cursor' })
 
 vim.keymap.set('n', '<Leader>t', function()
   local minitrailspace = require('mini.trailspace')
@@ -332,6 +334,8 @@ require('gitsigns').setup({
     -- Actions
     -- map('n', '<leader>hs', gitsigns.stage_hunk)
     -- map('n', '<leader>hr', gitsigns.reset_hunk)
+    map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'stage hunk' })
+    map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'reset hunk' })
     --
     -- map('v', '<leader>hs', function()
     --   gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
@@ -343,6 +347,8 @@ require('gitsigns').setup({
     --
     -- map('n', '<leader>hS', gitsigns.stage_buffer)
     -- map('n', '<leader>hR', gitsigns.reset_buffer)
+    map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'stage buffer' })
+    map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'reset buffer' })
     map('n', '<S-h>', gitsigns.preview_hunk, { desc = 'preview hunk' })
     -- map('n', '<leader>hi', gitsigns.preview_hunk_inline)
     --
@@ -414,7 +420,7 @@ vim.keymap.set('n', '<Leader>d', function()
   end
   require('diffview').open()
 end, { desc = 'diff' })
-vim.keymap.set('n', '<Leader>l', function()
+vim.keymap.set('n', '<Leader>lf', function()
   local current_tabpage = vim.api.nvim_get_current_tabpage()
   for _, view in ipairs(require('diffview.lib').views) do
     if view.tabpage == current_tabpage then
@@ -423,7 +429,7 @@ vim.keymap.set('n', '<Leader>l', function()
     end
   end
   require('diffview').file_history(nil, { '%' })
-end, { desc = 'log' })
+end, { desc = 'file history' })
 -- }}}
 
 -- neovim
@@ -464,6 +470,15 @@ vim.api.nvim_create_autocmd('CursorMoved', {
       return
     end
     vim.cmd.normal({ args = { 'zz' }, bang = true })
+  end,
+})
+
+vim.api.nvim_create_autocmd('WinEnter', {
+  group = vim.api.nvim_create_augroup('User_WinEnter', { clear = true }),
+  callback = function()
+    if vim.api.nvim_win_get_config(0).relative ~= '' then
+      vim.keymap.set('n', '<Esc>', '<Cmd>close<CR>', { buffer = true })
+    end
   end,
 })
 -- }}}
