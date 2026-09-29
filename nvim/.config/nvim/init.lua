@@ -130,12 +130,14 @@ local statusline = require('mini.statusline')
 statusline.setup({
   content = {
     active = function()
+      local mode, mode_hl = statusline.section_mode({ trunc_width = 1000 })
       local dirpath = vim.fn.expand('%:h')
       if dirpath == '.' then
         dirpath = ''
       end
       local fileinfo = string.format('%s %s', vim.bo.fileencoding or vim.bo.encoding, vim.bo.fileformat)
       return statusline.combine_groups({
+        { hl = mode_hl, strings = { mode } },
         { hl = 'Bold', strings = { '%t%m%r' } },
         '%<',
         { hl = 'StatusLine', strings = { dirpath } },
