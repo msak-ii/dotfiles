@@ -6,6 +6,6 @@
     dark = true
     line-numbers = true
     navigate = true
-    syntax-theme = ansi
+    syntax-theme = Solarized (dark)
 [merge]
     conflictStyle = zdiff3

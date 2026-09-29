@@ -1,0 +1,26 @@
+# font-feature = -calt, -liga, -dlig
+font-size = 16
+
+# theme = iTerm2 Solarized Dark
+# theme = Solarized Dark Higher Contrast
+theme = Solarized Dark Patched
+
+mouse-hide-while-typing = true
+
+background-opacity = 0.8
+background-blur = true
+
+command = /opt/homebrew/bin/fish
+# command = /opt/homebrew/bin/tmux
+
+window-padding-x = 16
+window-padding-y = 16
+window-padding-balance = true
+
+window-save-state = never
+confirm-close-surface = false
+quit-after-last-window-closed = true
+
+shell-integration = fish
+
+macos-titlebar-style = hidden

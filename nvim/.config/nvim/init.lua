@@ -192,6 +192,12 @@ vim.keymap.set('n', '<Leader>t', function()
 end, { desc = 'trim' })
 -- }}}
 
+-- {{{ solarized
+vim.pack.add({ 'https://github.com/maxmx03/solarized.nvim' })
+
+require('solarized').setup()
+-- }}}
+
 -- {{{ easy-align
 vim.pack.add({ 'https://github.com/junegunn/vim-easy-align' })
 
@@ -432,6 +438,10 @@ vim.keymap.set('n', '<Leader>lf', function()
 end, { desc = 'file history' })
 -- }}}
 
+-- {{{ vim-tmux-navigator
+vim.pack.add({ 'https://github.com/christoomey/vim-tmux-navigator' })
+-- }}}
+
 -- {{{ dap
 vim.pack.add({
   'https://github.com/mfussenegger/nvim-dap',
@@ -480,7 +490,10 @@ end
 
 vim.opt.foldmethod = 'marker'
 
+vim.opt.signcolumn = 'auto'
 vim.opt.relativenumber = true
+
+vim.opt.statuscolumn = '%s %l │ '
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 0
@@ -492,8 +505,13 @@ vim.opt.pumborder = 'rounded'
 
 vim.opt.laststatus = 3
 
-vim.cmd.colorscheme('miniwinter')
-require('mini.colors').get_colorscheme():add_transparency():apply()
+vim.cmd.colorscheme('solarized')
+require('mini.colors')
+  .get_colorscheme()
+  :add_transparency({
+    statuscolumn = true,
+  })
+  :apply()
 -- }}}
 
 -- {{{ autocmds
