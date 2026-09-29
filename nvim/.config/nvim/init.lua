@@ -118,14 +118,12 @@ require('mini.git').setup()
 require('mini.cursorword').setup()
 require('mini.hipatterns').setup()
 -- require('mini.hues').setup()
-require('mini.icons').setup({
-  style = 'ascii',
-})
+require('mini.icons').setup()
 require('mini.indentscope').setup()
 -- require('mini.map').setup()
 require('mini.notify').setup()
 -- require('mini.starter').setup()
-require('mini.statuscolumn').setup()
+-- require('mini.statuscolumn').setup()
 local statusline = require('mini.statusline')
 statusline.setup({
   content = {
@@ -148,7 +146,6 @@ statusline.setup({
       })
     end,
   },
-  use_icons = false,
 })
 -- require('mini.tabline').setup()
 require('mini.trailspace').setup()
@@ -157,6 +154,8 @@ require('mini.trailspace').setup()
 -- require('mini.doc').setup()
 -- require('mini.fuzzy').setup()
 -- require('mini.test').setup()
+
+require('mini.icons').mock_nvim_web_devicons()
 
 vim.api.nvim_create_autocmd('User', {
   group = vim.api.nvim_create_augroup('User_MiniFilesWindowOpen', { clear = true }),
@@ -404,9 +403,7 @@ end, { desc = 'Toggle Satellite' })
 -- {{{ diffview
 vim.pack.add({ 'https://github.com/sindrets/diffview.nvim' })
 
-require('diffview').setup({
-  use_icons = false,
-})
+require('diffview').setup()
 
 vim.keymap.set('n', '<Leader>D', function()
   local current_tabpage = vim.api.nvim_get_current_tabpage()
@@ -454,28 +451,7 @@ vim.pack.add({
 local dap = require('dap')
 local dapui = require('dapui')
 
-require('dapui').setup({
-  controls = {
-    element = 'repl',
-    enabled = true,
-    icons = {
-      disconnect = 'DC',
-      pause = '||',
-      play = '|>',
-      run_last = 'RL',
-      step_back = '<<',
-      step_into = '->',
-      step_out = '<-',
-      step_over = '>>',
-      terminate = 'x',
-    },
-  },
-  icons = {
-    collapsed = '>',
-    current_frame = '>',
-    expanded = '\\',
-  },
-})
+require('dapui').setup()
 
 vim.keymap.set('n', '<F2>', dap.toggle_breakpoint, { desc = 'Debug: toggle breackpoint' })
 vim.keymap.set('n', '<F12>', dapui.toggle, { desc = 'Toggle Debug UI' })
