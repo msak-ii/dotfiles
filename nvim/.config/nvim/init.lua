@@ -1,3 +1,5 @@
+local use_icons = true
+
 -- disable bytecode caching
 vim.loader.enable(false)
 
@@ -78,8 +80,8 @@ clue.setup({
     clue.gen_clues.windows(),
     clue.gen_clues.z(),
 
+    { mode = 'n', keys = '<Leader>H', desc = '+History' },
     { mode = 'n', keys = '<Leader>h', desc = '+Hunk' },
-    { mode = 'n', keys = '<Leader>l', desc = '+History' },
     { mode = 'n', keys = '<Leader>y', desc = '+Yank' },
   },
 
@@ -118,7 +120,9 @@ require('mini.git').setup()
 require('mini.cursorword').setup()
 require('mini.hipatterns').setup()
 -- require('mini.hues').setup()
-require('mini.icons').setup()
+require('mini.icons').setup({
+  style = use_icons and 'gryph' or 'ascii',
+})
 require('mini.indentscope').setup()
 -- require('mini.map').setup()
 require('mini.notify').setup()
@@ -155,7 +159,9 @@ require('mini.trailspace').setup()
 -- require('mini.fuzzy').setup()
 -- require('mini.test').setup()
 
-require('mini.icons').mock_nvim_web_devicons()
+if use_icons then
+  require('mini.icons').mock_nvim_web_devicons()
+end
 
 vim.api.nvim_create_autocmd('User', {
   group = vim.api.nvim_create_augroup('User_MiniFilesWindowOpen', { clear = true }),
@@ -182,7 +188,7 @@ vim.keymap.set('n', '<Leader>e', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), false)
 end, { desc = 'explorer' })
 
-vim.keymap.set('n', '<Leader>lc', function()
+vim.keymap.set('n', '<Leader>Hc', function()
   require('mini.git').show_at_cursor()
 end, { desc = 'history at cursor' })
 
@@ -289,7 +295,7 @@ fzf_lua.setup({
   },
   lsp = {
     symbols = {
-      symbol_style = 3,
+      symbol_style = use_icons and 1 or 3,
     },
   },
 })
@@ -403,7 +409,9 @@ end, { desc = 'Toggle Satellite' })
 -- {{{ diffview
 vim.pack.add({ 'https://github.com/sindrets/diffview.nvim' })
 
-require('diffview').setup()
+require('diffview').setup({
+  use_icons = use_icons,
+})
 
 vim.keymap.set('n', '<Leader>D', function()
   local current_tabpage = vim.api.nvim_get_current_tabpage()
@@ -425,7 +433,7 @@ vim.keymap.set('n', '<Leader>d', function()
   end
   require('diffview').open()
 end, { desc = 'diff' })
-vim.keymap.set('n', '<Leader>lf', function()
+vim.keymap.set('n', '<Leader>Hf', function()
   local current_tabpage = vim.api.nvim_get_current_tabpage()
   for _, view in ipairs(require('diffview.lib').views) do
     if view.tabpage == current_tabpage then
@@ -439,22 +447,6 @@ end, { desc = 'file history' })
 
 -- {{{ vim-tmux-navigator
 vim.pack.add({ 'https://github.com/christoomey/vim-tmux-navigator' })
--- }}}
-
--- {{{ dap
-vim.pack.add({
-  'https://github.com/mfussenegger/nvim-dap',
-  'https://github.com/nvim-neotest/nvim-nio',
-  'https://github.com/rcarriga/nvim-dap-ui',
-})
-
-local dap = require('dap')
-local dapui = require('dapui')
-
-require('dapui').setup()
-
-vim.keymap.set('n', '<F2>', dap.toggle_breakpoint, { desc = 'Debug: toggle breackpoint' })
-vim.keymap.set('n', '<F12>', dapui.toggle, { desc = 'Toggle Debug UI' })
 -- }}}
 
 -- neovim
@@ -499,7 +491,7 @@ vim.api.nvim_create_autocmd('CursorMoved', {
     if vim.api.nvim_get_mode().mode ~= 'n' then
       return
     end
-    if vim.api.nvim_buf_get_option(0, 'buftype') ~= '' then
+    if vim.api.nvim_get_option_value('buftype', {}) ~= '' then
       return
     end
     vim.cmd.normal({ args = { 'zz' }, bang = true })
