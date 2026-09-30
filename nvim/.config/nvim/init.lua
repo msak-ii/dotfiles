@@ -1,4 +1,4 @@
-local use_icons = true
+local use_icons = false
 
 -- disable bytecode caching
 vim.loader.enable(false)
@@ -140,7 +140,7 @@ statusline.setup({
       local fileinfo = string.format('%s %s', vim.bo.fileencoding or vim.bo.encoding, vim.bo.fileformat)
       return statusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
-        { hl = 'Bold', strings = { '%t%m%r' } },
+        { hl = 'Bold', strings = { ' %t%m%r' } },
         '%<',
         { hl = 'StatusLine', strings = { dirpath } },
         '%=',
@@ -446,7 +446,9 @@ end, { desc = 'file history' })
 -- }}}
 
 -- {{{ vim-tmux-navigator
-vim.pack.add({ 'https://github.com/christoomey/vim-tmux-navigator' })
+if vim.fn.has('mac') == 1 then
+  vim.pack.add({ 'https://github.com/christoomey/vim-tmux-navigator' })
+end
 -- }}}
 
 -- neovim
