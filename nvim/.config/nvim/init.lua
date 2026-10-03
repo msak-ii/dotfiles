@@ -477,6 +477,7 @@ vim.opt.pumborder = 'rounded'
 
 vim.opt.laststatus = 3
 
+vim.opt.termguicolors = true
 vim.cmd.colorscheme('solarized')
 require('mini.colors')
   .get_colorscheme()
