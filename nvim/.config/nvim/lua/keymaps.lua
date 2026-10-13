@@ -1,0 +1,80 @@
+local files = require('mini.files')
+local fzf_lua = require('fzf-lua')
+local gitsigns = require('gitsigns')
+local conform = require('conform')
+
+function y2cb(arg)
+  vim.fn.setreg('+', vim.fn.expand(arg))
+end
+
+vim.keymap.set('i', 'jj', '<Esc>')
+vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<Cr>')
+
+vim.keymap.set({ 'n', 'x' }, 'ga', '<Plug>(EasyAlign)')
+
+vim.keymap.set('n', '[c', function()
+  if vim.wo.diff then
+    vim.cmd.normal({ '[c', bang = true })
+  else
+    gitsigns.nav_hunk('prev')
+  end
+end)
+vim.keymap.set('n', ']c', function()
+  if vim.wo.diff then
+    vim.cmd.normal({ ']c', bang = true })
+  else
+    gitsigns.nav_hunk('next')
+  end
+end)
+
+vim.keymap.set('n', '<Leader><Leader>', fzf_lua.buffers, { desc = 'buffers' })
+vim.keymap.set('n', '<Leader>=', 'gg=G``', { desc = 'indent' })
+vim.keymap.set('n', '<Leader>C', require('mini.git').show_at_cursor, { desc = 'history at cursor' })
+vim.keymap.set('n', '<Leader>E', function()
+  files.open()
+end, { desc = 'explorer root' })
+vim.keymap.set('n', '<Leader>G', fzf_lua.git_status, { desc = 'git status' })
+vim.keymap.set('n', '<Leader>h', '<Cmd>DiffviewFileHistory<Cr>', { desc = 'file history' })
+vim.keymap.set('n', '<Leader>O', fzf_lua.lsp_live_workspace_symbols, { desc = 'workspace symbols' })
+vim.keymap.set('n', '<Leader>a', '<Cmd>quitall<Cr>', { desc = 'quitall' })
+vim.keymap.set('n', '<Leader>c', '<Cmd>tabclose<Cr>', { desc = 'tabclose' })
+vim.keymap.set('n', '<Leader>d', fzf_lua.diagnostics_document, { desc = 'diagnostics' })
+vim.keymap.set('n', '<Leader>e', function()
+  files.open(vim.api.nvim_buf_get_name(0), false)
+end, { desc = 'explorer' })
+vim.keymap.set('n', '<Leader>g', fzf_lua.live_grep, { desc = 'grep' })
+vim.keymap.set('n', '<Leader>o', fzf_lua.lsp_document_symbols, { desc = 'symbols' })
+vim.keymap.set('n', '<Leader>p', fzf_lua.files, { desc = 'files' })
+vim.keymap.set('n', '<Leader>q', '<Cmd>quit<Cr>', { desc = 'quit' })
+vim.keymap.set('n', '<Leader>r', '<Cmd>restart<Cr>', { desc = 'restart' })
+vim.keymap.set('n', '<Leader>s', '<Cmd>split<Cr>', { desc = 'split' })
+vim.keymap.set('n', '<Leader>u', vim.pack.update, { desc = 'update plugins' })
+vim.keymap.set('n', '<Leader>v', '<Cmd>vsplit<Cr>', { desc = 'vsplit' })
+vim.keymap.set('n', '<Leader>w', '<Cmd>write<Cr>', { desc = 'write' })
+vim.keymap.set('n', '<Leader>x', '<Cmd>luafile .nvim.lua<Cr>', { desc = 'exrc' })
+vim.keymap.set('n', '<Leader>yh', function()
+  y2cb('%:h')
+end, { desc = 'directory' })
+vim.keymap.set('n', '<Leader>yp', function()
+  y2cb('%')
+end, { desc = 'filepath' })
+vim.keymap.set('n', '<Leader>yt', function()
+  y2cb('%:t')
+end, { desc = 'filename' })
+vim.keymap.set({ 'n', 'x' }, '<Leader>f', conform.format, { desc = 'format' })
+
+vim.keymap.set('n', '<S-b>', function()
+  gitsigns.blame_line({ full = true })
+end)
+vim.keymap.set('n', '<S-d>', vim.diagnostic.open_float)
+vim.keymap.set('n', '<S-h>', gitsigns.preview_hunk)
+vim.keymap.set('n', '<S-s>', vim.lsp.buf.signature_help)
+
+vim.keymap.set('n', '\\S', '<Cmd>SatelliteDisable<Cr>', { desc = 'enable scrollbar' })
+vim.keymap.set('n', '\\s', '<Cmd>SatelliteEnable<Cr>', { desc = 'disable scrollbar' })
+vim.keymap.set('n', '\\t', '<Cmd>TSContext toggle<Cr>', { desc = 'Toggle TSContext' })
+
+vim.keymap.set('n', 'grD', vim.lsp.buf.declaration, { desc = 'vim.lsp.buf.declaration()' })
+vim.keymap.set('n', 'grI', vim.lsp.buf.incoming_calls, { desc = 'vim.lsp.buf.incoming_calls()' })
+vim.keymap.set('n', 'grO', vim.lsp.buf.outgoing_calls, { desc = 'vim.lsp.buf.outgoing_calls()' })
+vim.keymap.set('n', 'grd', vim.lsp.buf.definition, { desc = 'vim.lsp.buf.definition()' })
