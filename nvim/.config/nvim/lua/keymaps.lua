@@ -1,7 +1,6 @@
 local files = require('mini.files')
 local fzf_lua = require('fzf-lua')
 local gitsigns = require('gitsigns')
-local conform = require('conform')
 
 function y2cb(arg)
   vim.fn.setreg('+', vim.fn.expand(arg))
