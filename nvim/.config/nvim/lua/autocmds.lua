@@ -19,21 +19,3 @@ vim.api.nvim_create_autocmd('WinEnter', {
     end
   end,
 })
-
-vim.api.nvim_create_autocmd('User', {
-  group = vim.api.nvim_create_augroup('User_MiniFilesWindowOpen', { clear = true }),
-  pattern = 'MiniFilesWindowOpen',
-  callback = function(args)
-    local files = require('mini.files')
-    vim.keymap.set('n', '<C-h>', function()
-      files.trim_right()
-      files.go_out()
-    end, { buffer = args.buf })
-    vim.keymap.set('n', '<C-j>', 'j', { buffer = args.buf })
-    vim.keymap.set('n', '<C-k>', 'k', { buffer = args.buf })
-    vim.keymap.set('n', '<C-l>', function()
-      files.trim_left()
-      files.go_in()
-    end, { buffer = args.buf })
-  end,
-})

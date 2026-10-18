@@ -114,10 +114,6 @@ clue.setup({
 require('mini.files').setup({
   mappings = {
     close = '<Esc>',
-    go_in = '',
-    go_in_plus = '',
-    go_out = '',
-    go_out_plus = '',
   },
 })
 

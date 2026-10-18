@@ -7,8 +7,7 @@ config.window_content_alignment = {
   vertical = 'Center',
 }
 config.enable_tab_bar = false
-config.font = wezterm.font('Monoid Nerd Font')
-config.font_size = 16
+config.font_size = 14
 config.color_scheme = 'Ubuntu'
 config.default_prog = {
   '/opt/homebrew/bin/zsh',
